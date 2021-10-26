@@ -25,7 +25,7 @@ function getContent(parsed : any) : string
 {
     let query = parsed.query;
     let action = query["action"];
-
+    game.update();
     return game.toString();
 }
 

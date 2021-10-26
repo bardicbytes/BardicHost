@@ -3,7 +3,10 @@ import { Entity } from "./Entity";
 import { MeanderSys } from "./MeanderSys";
 import { System } from "./System";
 
+import * as fs from "fs";
+
 const ticksPerMin = 10;
+const savePerMin = 10;
 
 export class BardGame
 {
@@ -26,6 +29,11 @@ export class BardGame
             new Entity("Eve", [new BodyComp()])
         ];
 
+        this.refreshSystems();
+    }
+
+    refreshSystems()
+    {
         this.systems = [
             new MeanderSys(this.entities),
 
@@ -59,8 +67,33 @@ export class BardGame
             s.update(dt);
         }
 
-        this.lastTime = new Date();
+        this.lastTime = now;
         this.tick++;
+    }
+
+    save()
+    {
+        let output :string = "output x " + this.lifeSeconds();
+        fs.writeFile("../saveData.json", output, function(err) {
+            if (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    load()
+    {
+        fs.readFile("../saveData.json",(err : NodeJS.ErrnoException, data: Buffer)=>{
+            //set data
+            this.refreshSystems();
+        })
+    }
+
+    lifeSeconds() : number{
+        let now = new Date();
+        let life = now.getTime() - this.startTime.getTime();
+        life /= 1000;
+        return life;
     }
 
 }

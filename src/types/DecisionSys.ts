@@ -2,7 +2,7 @@ import { BodyComp } from "./BodyComp";
 import { NavComp } from "./NavComp";
 import { System } from "./System";
 
-export class MeanderSys extends System
+export class DecisionSys extends System
 {
     getComponentReqs() : string[]{
         return [typeof(NavComp), typeof(BodyComp)];

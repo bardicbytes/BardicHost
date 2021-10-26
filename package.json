@@ -1,0 +1,13 @@
+{
+  "name": "bardic-host",
+  "version":"1.0.0",
+  "devDependencies": {
+    "@types/node": "^16.11.4",
+    "tslint": "^6.1.3"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+  
+}
+

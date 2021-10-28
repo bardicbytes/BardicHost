@@ -1,6 +1,6 @@
 import { IComponent } from "../IComponent";
 
-export class ReproductionComp implements IComponent
+export class SocialComp implements IComponent
 {
     selectiveness : number;
     attractiveness : number;

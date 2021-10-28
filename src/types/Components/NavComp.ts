@@ -16,9 +16,17 @@ export class NavComp implements IComponent
         {
             this.destX = Math.random() * 20 - 10;
         }
-        if(y!=undefined)
+        else
+        {
+            this.destX = x;
+        }
+        if(y!==undefined)
         {
             this.destY = Math.random() * 20 - 10;
+        }
+        else
+        {
+            this.destY = y;
         }
     }
 
@@ -26,6 +34,10 @@ export class NavComp implements IComponent
 
     toString() : string
     {
-        return "("+Math.round(this.destX)+","+Math.round(this.destY)+")";
+        if(!this.active)
+        {
+            return "";
+        }
+        return "dest = ("+Math.round(this.destX)+","+Math.round(this.destY)+")";
     }
 }

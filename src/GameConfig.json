@@ -1,5 +1,6 @@
 {
     "worldWrap" : true,
     "worldSize" : 150,
-    "spawnRange" : 10
+    "spawnRange" : 10,
+    "periodTicks" : 200
 }

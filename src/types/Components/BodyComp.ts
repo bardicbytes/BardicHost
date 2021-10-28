@@ -4,6 +4,8 @@ export class BodyComp implements IComponent
 {
     x : number;
     y : number;
+
+    radius : number;
     
     angle : number;
 
@@ -16,6 +18,6 @@ export class BodyComp implements IComponent
 
     toString() : string
     {
-        return "("+Math.round(this.x)+","+Math.round(this.y)+")";
+        return "pos=("+Math.round(this.x)+","+Math.round(this.y)+")";
     }
 }

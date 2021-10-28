@@ -3,8 +3,15 @@ import { System } from "../System";
 import { BodyComp } from "../Components/BodyComp";
 import { NavComp } from "../Components/NavComp";
 import { DigestionComp } from "../Components/DigestionComp";
-import { ReproductionComp } from "../Components/ReproductionComp";
+import { SocialComp } from "../Components/SocialComp";
 
+
+/*
+phys:   digestion, home, reproduction
+safe:   memory:resources
+social: memory:social
+esteem: awareness: quality
+*/
 export class DecisionSys extends System
 {
     getComponentReqs() : string[]{
@@ -19,7 +26,7 @@ export class DecisionSys extends System
             let body : BodyComp = e.getComp(typeof(BodyComp));
             let nav : NavComp = e.getComp(typeof(NavComp));
             let digestion : DigestionComp = e.getComp(typeof(DigestionComp));
-            let repro : ReproductionComp = e.getComp(typeof(ReproductionComp));
+            let repro : SocialComp = e.getComp(typeof(SocialComp));
             
         }
     }

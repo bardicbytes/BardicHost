@@ -43,7 +43,7 @@ export class Entity
     toString(): string
     {
         let output = "";
-        output = this.name+" "+this.lifeSeconds()+" sec. ";
+        output = this.name;
         for(let i = 0; i < this.components.length; i++)
         {
             output +="\n"+this.components[i].toString();

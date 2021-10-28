@@ -1,6 +1,8 @@
 var gulp = require('gulp');
 var ts = require('gulp-typescript');
 
+const pug = require('pug');
+
 exports.default = defaultTask;
 exports.build = buildTask;
 
@@ -10,14 +12,7 @@ function defaultTask(cb) {
   }
   
   function buildTask(cb) {
-    console.log("gulp build");
-    gulp.task('default', function () {
-      return gulp.src('src/**/*.ts')
-          .pipe(ts({
-              noImplicitAny: true,
-              outFile: 'output.js'
-          }))
-          .pipe(gulp.dest('built/local'));
-  });
+    let pfunc = pug.compileFile('./pugs/index.pug');
+    //console.log("gulp build\n"+pfunc);
     cb();
   }

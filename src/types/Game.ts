@@ -75,6 +75,7 @@ export class BardGame
         {
             content.people.push(this.entities[i].toString());
         }
+        return content;
     }
 
     getDeltaTime() : number

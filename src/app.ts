@@ -42,9 +42,17 @@ function handleRequest(request: IncomingMessage, response: ServerResponse)
 
 function getContent(mode : string) : string
 {
-    let vars : any = game.getContent(mode);
-    
-    return indexFunction(vars);
+    try
+    {
+        let vars : any = game.getContent(mode);
+        console.log(JSON.stringify(vars, null, 4));
+        let c = indexFunction(vars);
+        return c;
+    }
+    catch(e)
+    {
+        return "error\n"+e;
+    }
 }
 
 

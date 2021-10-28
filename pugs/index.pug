@@ -1,9 +1,10 @@
 doctype html
 html(lang="en")
   head
-    title = "BardSim"
+    title BardSim
   body
     h2 People
     ul
-        each val in people
-        li = val
+      each val, index in (people ? (people.length ? people : ['no people']) : ["people is "+typeof(people)])
+        li= (index+1)+": "+val
+p thats it

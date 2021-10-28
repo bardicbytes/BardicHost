@@ -1,21 +1,23 @@
 import { assert, debug } from "console";
 import stringHash = require("string-hash");
-import { Component } from "./Component";
+import { IComponent } from "./IComponent";
+
+import gameConfig from  '../GameConfig.json';
 
 export class Entity
 {
     startTime : Date;
     name : string;
-    components : Component[];
+    components : IComponent[];
 
-    compMap : Map<number, Component>;
+    compMap : Map<number, IComponent>;
 
-    constructor(name : string, components : Component[]){
+    constructor(name : string, components : IComponent[]){
         this.startTime = new Date();
         this.name = name;
         assert(components != null && components.length >= 1);
         this.components = components;
-        this.compMap = new Map<number,Component>();
+        this.compMap = new Map<number,IComponent>();
         for(let i = 0; i < components.length; i++)
         {
             let c = components[i];
@@ -23,7 +25,7 @@ export class Entity
         }
     }
 
-    getComp<T extends Component>(key : any) : T
+    getComp<T extends IComponent>(key : any) : T
     {
         return this.compMap.get(stringHash(typeof(key))) as T
     }

@@ -1,0 +1,25 @@
+{
+    "version":"2.0.0",
+    "tasks":[
+        {
+            "label": "bard-build",
+            "dependsOn": ["npm-build"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "npm-build",
+            "type": "npm",
+            "script": "build",
+            "dependsOn":["gulp-build"]
+        },
+        {
+            "label": "gulp-build",
+            "type": "shell",
+            "command" : "gulp",
+            "args": ["build"]
+        }
+    ]
+}

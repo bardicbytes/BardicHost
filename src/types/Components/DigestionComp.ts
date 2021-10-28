@@ -1,15 +1,15 @@
-import { Component } from "./Component";
+import { IComponent } from "../IComponent";
 
-export class DigestionComp extends Component
+export class DigestionComp implements IComponent
 {
     stomach : number;
     energy : number;
+    hydration : number;
 
     rate : number;
 
     constructor()
     {
-        super();
         this.stomach = 0;
         this.energy = 1;
         this.rate = .01;

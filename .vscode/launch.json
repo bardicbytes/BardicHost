@@ -1,6 +1,7 @@
 {
     "configurations": [
         
+
     {
         "name": "Launch Program",
         "program": "${workspaceFolder}/dist/app.js",
@@ -9,9 +10,8 @@
             "<node_internals>/**"
         ],
         "type": "pwa-node",
-        "preLaunchTask": "tsc: build - tsconfig.json",
-        "outFiles": ["${workspaceFolder}/out/**/*.js"]
-        
-    }
+        "preLaunchTask": "bard-build",
+        "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+    },
     ]
 }

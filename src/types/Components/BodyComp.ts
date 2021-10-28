@@ -1,14 +1,15 @@
-import { Component } from "./Component";
+import { IComponent } from "../IComponent";
 
-export class BodyComp extends Component
+export class BodyComp implements IComponent
 {
     x : number;
     y : number;
+    
+    angle : number;
 
     delta : number;
 
     constructor(){
-        super();
         this.x = Math.random() * 5;
         this.y = Math.random() * 5;
     }

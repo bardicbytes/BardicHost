@@ -1,11 +1,11 @@
-import { DigestionComp } from "./DigestionComp";
-import { System } from "./System";
+import { DigestionComp } from "../Components/DigestionComp";
+import { System } from "../System";
 
 export class MetabolismSys extends System
 {
 
     getComponentReqs() : string[]{
-        return ["DigestionComp"];
+        return [typeof(DigestionComp)];
     }
 
     update(dt : number)

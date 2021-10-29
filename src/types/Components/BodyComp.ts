@@ -1,23 +1,19 @@
 import { IComponent } from "../IComponent";
+import { Vector2 } from "../Vector2";
 
 export class BodyComp implements IComponent
 {
-    x : number;
-    y : number;
-
+    pos : Vector2;
     radius : number;
-    
     angle : number;
-
     delta : number;
 
-    constructor(){
-        this.x = Math.random() * 5;
-        this.y = Math.random() * 5;
+    constructor(pos ? : Vector2){
+        this.pos = pos !== undefined ? pos : new Vector2();
     }
 
     toString() : string
     {
-        return "pos=("+Math.round(this.x)+","+Math.round(this.y)+")";
+        return this.pos.toString();
     }
 }

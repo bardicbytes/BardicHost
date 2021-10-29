@@ -5,7 +5,7 @@ export class MemoryComp implements IComponent
     constructor(){
     }
 
-    toString() : string
+    toString() : string 
     {
         return "memorycomp";
     }

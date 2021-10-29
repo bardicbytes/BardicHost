@@ -25,10 +25,11 @@ export class Entity
         }
     }
 
-    getComp<T extends IComponent>(key : any) : T
+    getComp<T extends IComponent>(classKey : any) : T
     {
-        return this.compMap.get(stringHash(typeof(key))) as T
+        return this.compMap.get(stringHash(typeof(classKey))) as T
     }
+
 
     hasComponents(components : string[]) : boolean
     {

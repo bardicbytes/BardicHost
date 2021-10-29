@@ -1,11 +1,12 @@
 import { System } from "../System";
 
 import { NavComp } from "../Components/NavComp";
+import { BodyComp } from "../Components/BodyComp";
 
 export class SocialSys extends System
 {
     getComponentReqs() : string[]{
-        return [typeof(NavComp)];
+        return [typeof(NavComp),typeof(BodyComp)];
     }
 
     update(dt : number)
@@ -14,8 +15,7 @@ export class SocialSys extends System
         {
             let e = this.entities[i];
             let nav : NavComp = e.getComp(typeof(NavComp));
-
-            
+            let landmark : BodyComp = e.getComp(typeof(BodyComp));
         }
     }
 };

@@ -1,33 +1,27 @@
 import { IComponent } from "../IComponent";
 
 import gameConfig from  '../../GameConfig.json';
+import { Vector2 } from "../Vector2";
 
 export class NavComp implements IComponent
 {
     active : boolean;
 
-    destX : number;
-    destY : number;
+    dest : Vector2;
 
-    constructor(x?:number,y?:number){
+    constructor(dest? : Vector2){
         
         this.active = false;
-        if(x!==undefined)
+        if(dest!==undefined)
         {
-            this.destX = Math.random() * 20 - 10;
+            this.dest = dest;
         }
         else
         {
-            this.destX = x;
+            let r =  gameConfig.spawnRange;
+            this.dest = new Vector2(Math.random() * r - r/2,Math.random() * r - r/2);
         }
-        if(y!==undefined)
-        {
-            this.destY = Math.random() * 20 - 10;
-        }
-        else
-        {
-            this.destY = y;
-        }
+
     }
 
 
@@ -38,6 +32,6 @@ export class NavComp implements IComponent
         {
             return "";
         }
-        return "dest = ("+Math.round(this.destX)+","+Math.round(this.destY)+")";
+        return "dest = "+this.dest.toString;
     }
 }

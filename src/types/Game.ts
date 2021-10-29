@@ -7,11 +7,9 @@ import { System } from "./System";
 
 import { BodyComp } from "./Components/BodyComp";
 import { NavComp } from "./Components/NavComp";
-import { DigestionComp } from "./Components/DigestionComp";
-
 import { DecisionSys } from "./Systems/DecisionSys";
 import { MovementSys } from "./Systems/MovementSys";
-import { MetabolismSys } from "./Systems/MetabolismSys";
+import { GrowthSys } from "./Systems/GrowthSys";
 
 const ticksPerMin = 10;
 const savePerMin = 10;
@@ -42,14 +40,14 @@ export class BardGame
 
     getNewPersonComps() : IComponent[] 
     {
-        return [new BodyComp(), new NavComp(), new DigestionComp()];
+        return [new BodyComp(), new NavComp()];
     }
 
     refreshSystems()
     {
         this.systems = [
             new DecisionSys(this.entities),
-            new MetabolismSys(this.entities),
+            new GrowthSys(this.entities),
             new MovementSys(this.entities),
 
         ];

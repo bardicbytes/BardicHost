@@ -1,5 +1,4 @@
 import { System } from "../System";
-
 import { ResourceComp } from "../Components/ResourceComp";
 
 export class ResourceSys extends System

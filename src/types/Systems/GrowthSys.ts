@@ -1,9 +1,9 @@
+import { AnimalComp } from "../Components/AnimalComp";
 import { System } from "../System";
 
-import { AnimalComp } from "../Components/AnimalComp";
-
-export class SocialSys extends System
+export class GrowthSys extends System
 {
+
     getComponentReqs() : string[]{
         return [typeof(AnimalComp)];
     }
@@ -13,9 +13,12 @@ export class SocialSys extends System
         for(let i = 0; this.entities != null && i < this.entities.length; i++)
         {
             let e = this.entities[i];
-            let soc : AnimalComp = e.getComp(typeof(AnimalComp));
+            let animal : AnimalComp = e.getComp(AnimalComp);
 
-            
+            let a = animal.stomachRate * dt;
+            let aActual = Math.min(a, animal.stomach, 1 - animal.energy);
+            animal.energy += aActual;
+
         }
     }
 };

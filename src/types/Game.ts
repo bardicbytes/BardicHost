@@ -5,11 +5,8 @@ import { Entity } from "./Entity";
 import { IComponent } from "./IComponent";
 import { System } from "./System";
 
-import { BodyComp } from "./Components/BodyComp";
-import { NavComp } from "./Components/NavComp";
-import { DecisionSys } from "./Systems/DecisionSys";
-import { MovementSys } from "./Systems/MovementSys";
-import { GrowthSys } from "./Systems/GrowthSys";
+import * as Comps from "./Components";
+import * as Systems from "./Systems";
 
 const ticksPerMin = 10;
 const savePerMin = 10;
@@ -23,6 +20,8 @@ export class BardGame
     startTime : Date;
     lastTime : Date;
     static ticksPerMin: number = ticksPerMin;
+    
+    entityMap : Map<number, Entity>;
 
     constructor(){
         console.log("constructing game");
@@ -30,26 +29,46 @@ export class BardGame
         this.startTime = new Date();
         this.lastTime = new Date();
 
+        this.entityMap = new Map<number,Entity>();
+
         this.entities = [
             new Entity("Adam", this.getNewPersonComps()),
-            new Entity("Eve", this.getNewPersonComps())
+            new Entity("Eve", this.getNewPersonComps()),
         ];
 
         this.refreshSystems();
     }
 
-    getNewPersonComps() : IComponent[] 
+    getNewPersonComps(extraComps? : string[]) : string[] 
     {
-        return [new BodyComp(), new NavComp()];
+        let comps  : string[] = [typeof Comps.BodyComp, typeof Comps.NavComp, typeof Comps.AnimalComp, typeof Comps.PerceptionComp];
+        if(extraComps !== undefined) comps = comps.concat(extraComps);
+        return comps;
+    }
+
+    getNewPlantComps(extraComps? : string[]) : string[] 
+    {
+        let comps : string[] = [typeof Comps.BodyComp, typeof Comps.VegetableComp]
+        if(extraComps !== undefined) comps = comps.concat(extraComps);
+        return comps;
+    }
+
+    getNewObjectComps(extraComps? : string[]) : string[]
+    {
+        let comps : string[] = [typeof Comps.BodyComp]
+        if(extraComps !== undefined) comps = comps.concat(extraComps);
+        return comps;
     }
 
     refreshSystems()
     {
         this.systems = [
-            new DecisionSys(this.entities),
-            new GrowthSys(this.entities),
-            new MovementSys(this.entities),
-
+            new Systems.DecisionSys(this.entities),
+            new Systems.GrowthSys(this.entities),
+            new Systems.MovementSys(this.entities),
+            new Systems.NavigationSys(this.entities),
+            new Systems.ResourceSys(this.entities),
+            new Systems.SocialSys(this.entities),
         ];
     }
 

@@ -2,8 +2,9 @@ import { System } from "../System";
 
 import { BodyComp } from "../Components/BodyComp";
 import { NavComp } from "../Components/NavComp";
-import { AnimalComp } from "../Components/AnimalComp";
 import { MemoryComp } from "../Components/MemoryComp";
+import { AnimalComp } from "../Components/AnimalComp";
+
 
 /*
 phys:   digestion, home

@@ -2,7 +2,6 @@
 import { BardGame } from './types/Game';
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 const pug = require('pug');
-
 const url = require('url');
 
 const port = 3000;

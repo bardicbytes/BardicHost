@@ -3,7 +3,7 @@ import { System } from "../System";
 import { NavComp } from "../Components/NavComp";
 import { BodyComp } from "../Components/BodyComp";
 
-export class SocialSys extends System
+export class NavigationSys extends System
 {
     getComponentReqs() : string[]{
         return [typeof(NavComp),typeof(BodyComp)];

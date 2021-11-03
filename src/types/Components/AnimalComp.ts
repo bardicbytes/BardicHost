@@ -4,6 +4,8 @@ import gameConfig from  '../../GameConfig.json';
 
 export class AnimalComp implements IComponent
 {
+    static compName = "Animal";
+
     selectiveness : number;
     attractiveness : number;
 
@@ -24,9 +26,11 @@ export class AnimalComp implements IComponent
         this.attractiveness = .5;
     }
 
+    getCompName() : string {return AnimalComp.compName};
+    
     toString() : string
     {
-        return "AnimalComp";
+        return this.getCompName();
     }
 
 }

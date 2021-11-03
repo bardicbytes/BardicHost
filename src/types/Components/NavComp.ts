@@ -5,6 +5,8 @@ import { Vector2 } from "../Vector2";
 
 export class NavComp implements IComponent
 {
+    static compName = "Navigation";
+
     active : boolean;
 
     dest : Vector2;
@@ -24,7 +26,7 @@ export class NavComp implements IComponent
 
     }
 
-
+    getCompName() : string {return NavComp.compName};
 
     toString() : string
     {

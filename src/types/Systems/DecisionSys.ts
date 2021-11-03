@@ -24,10 +24,10 @@ export class DecisionSys extends System
         for(let i = 0; this.entities != null && i < this.entities.length; i++)
         {
             let e = this.entities[i];
-            let body : BodyComp = e.getComp(typeof(BodyComp));
-            let memory : MemoryComp = e.getComp(typeof(MemoryComp));
-            let nav : NavComp = e.getComp(typeof(NavComp));
-            let animal : AnimalComp = e.getComp(typeof(AnimalComp));
+            let body : BodyComp = e.getComp(BodyComp.compName);
+            let memory : MemoryComp = e.getComp(MemoryComp.compName);
+            let nav : NavComp = e.getComp((NavComp.compName));
+            let animal : AnimalComp = e.getComp((AnimalComp.compName));
 
             //find current pressing need
             //check if new need is strong enough to abort current task

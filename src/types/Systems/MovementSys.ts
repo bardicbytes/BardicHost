@@ -13,12 +13,12 @@ export class MovementSys extends System
         for(let i = 0; this.entities != null && i < this.entities.length; i++)
         {
             let e = this.entities[i];
-            let nav : NavComp = e.getComp(typeof(NavComp));
+            let nav : NavComp = e.getComp((NavComp.compName));
             if(nav.active)
             {
                 return;
             }
-            let body : BodyComp = e.getComp(typeof(BodyComp));
+            let body : BodyComp = e.getComp((BodyComp.compName));
 
             
             

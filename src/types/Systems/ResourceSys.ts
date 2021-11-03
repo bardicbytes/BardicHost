@@ -12,7 +12,7 @@ export class ResourceSys extends System
         for(let i = 0; this.entities != null && i < this.entities.length; i++)
         {
             let e = this.entities[i];
-            let res : ResourceComp = e.getComp(typeof(ResourceComp));
+            let res : ResourceComp = e.getComp((ResourceComp.compName));
             if(res.amount < 1)
             {
                 res.amount += Math.min(res.regen * dt, 1 - res.amount);

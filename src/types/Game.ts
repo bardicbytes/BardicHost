@@ -7,6 +7,7 @@ import { System } from "./System";
 
 import * as Comps from "./Components";
 import * as Systems from "./Systems";
+import stringHash from "string-hash";
 
 const ticksPerMin = 10;
 const savePerMin = 10;
@@ -22,6 +23,7 @@ export class BardGame
     static ticksPerMin: number = ticksPerMin;
     
     entityMap : Map<number, Entity>;
+    compConstructorMap : Map<number, Function>;
 
     constructor(){
         console.log("constructing game");
@@ -36,26 +38,33 @@ export class BardGame
             new Entity("Eve", this.getNewPersonComps()),
         ];
 
+        for(let i = 0; i < this.entities.length; i++)
+        {
+            let e : Entity= this.entities[i];
+            let h : number= stringHash(e.name);
+            this.entityMap.set(h,e);
+        }
+
         this.refreshSystems();
     }
 
     getNewPersonComps(extraComps? : string[]) : string[] 
     {
-        let comps  : string[] = [typeof Comps.BodyComp, typeof Comps.NavComp, typeof Comps.AnimalComp, typeof Comps.PerceptionComp];
+        let comps  : string[] = [Comps.BodyComp.compName, Comps.NavComp.compName, Comps.AnimalComp.compName, Comps.PerceptionComp.compName];
         if(extraComps !== undefined) comps = comps.concat(extraComps);
         return comps;
     }
 
     getNewPlantComps(extraComps? : string[]) : string[] 
     {
-        let comps : string[] = [typeof Comps.BodyComp, typeof Comps.VegetableComp]
+        let comps : string[] = [Comps.BodyComp.compName, Comps.VegetableComp.compName]
         if(extraComps !== undefined) comps = comps.concat(extraComps);
         return comps;
     }
 
     getNewObjectComps(extraComps? : string[]) : string[]
     {
-        let comps : string[] = [typeof Comps.BodyComp]
+        let comps : string[] = [Comps.BodyComp.compName]
         if(extraComps !== undefined) comps = comps.concat(extraComps);
         return comps;
     }
@@ -77,8 +86,16 @@ export class BardGame
         let output = "";
         for(let i= 0 ;this.entities != null && i < this.entities.length; i++)
         {
-            output += this.entities[i].toString();
-            output += "<br />";
+            try
+            {
+                output += this.entities[i].toString();
+                output += "<br />";
+            }
+            catch(e : any)
+            {
+                output += e;
+                output += "<br />";
+            }
         }
         return output;
     }
@@ -90,7 +107,14 @@ export class BardGame
         };
         for(let i = 0; i < this.entities.length; i++)
         {
-            content.people.push(this.entities[i].toString());
+            try
+            {
+                content.people.push(this.entities[i].toString());
+                
+            }
+            catch(e){
+                content.people.push(e);
+            }
         }
         return content;
     }

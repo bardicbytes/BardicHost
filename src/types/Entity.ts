@@ -27,11 +27,12 @@ export class Entity
 
         for(let i = 0; i < compTypes.length; i++)
         {
-            
-            //Object.create( as object)
-            
-            let c = this.components[i];
-            this.compMap.set(stringHash(typeof c), c);
+            let t = compTypes[i];
+            //console.log("creating "+t)
+            let c : IComponent = Comps.Create(t);
+            this.components[i] = c;
+            let h = stringHash(c.getCompName());
+            this.compMap.set(h, c);
         }
         this.id = Entity.getNextID();
     }
@@ -45,9 +46,9 @@ export class Entity
         return id;;
     }
 
-    getComp<T extends IComponent>(classKey : any) : T
+    getComp<T extends IComponent>(classKey : string) : T
     {
-        return this.compMap.get(stringHash(typeof(classKey))) as T
+        return this.compMap.get(stringHash(classKey)) as T
     }
 
 
@@ -56,7 +57,7 @@ export class Entity
         //assert(components != null);
         for(let i = 0; components != null && i < components.length; i++)
         {
-            if(!this.compMap.has(stringHash(typeof components[i]))) {return false;}
+            if(!this.compMap.has(stringHash(components[i]))) {return false;}
         }
         return true;
     }
@@ -67,7 +68,14 @@ export class Entity
         output = this.name;
         for(let i = 0; i < this.components.length; i++)
         {
-            output +="\n"+this.components[i].toString();
+            try
+            {
+                output +=this.components[i].toString();
+            }
+            catch(e : any)
+            {
+                output += "error";
+            }
         }
         return output;
     }

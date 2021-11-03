@@ -13,7 +13,7 @@ export class SocialSys extends System
         for(let i = 0; this.entities != null && i < this.entities.length; i++)
         {
             let e = this.entities[i];
-            let soc : AnimalComp = e.getComp(typeof(AnimalComp));
+            let soc : AnimalComp = e.getComp((AnimalComp.compName));
 
             
         }

@@ -14,8 +14,8 @@ export class NavigationSys extends System
         for(let i = 0; this.entities != null && i < this.entities.length; i++)
         {
             let e = this.entities[i];
-            let nav : NavComp = e.getComp(typeof(NavComp));
-            let landmark : BodyComp = e.getComp(typeof(BodyComp));
+            let nav : NavComp = e.getComp((NavComp.compName));
+            let landmark : BodyComp = e.getComp(BodyComp.compName);
         }
     }
 };

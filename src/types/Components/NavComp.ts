@@ -1,11 +1,14 @@
 import { IComponent } from "../IComponent";
 
-import gameConfig from  '../../GameConfig.json';
+import gameConfig from  '../../config.json';
 import { Vector2 } from "../Vector2";
+import stringHash from "string-hash";
 
 export class NavComp implements IComponent
 {
     static compName = "Navigation";
+    static nameHash : number = stringHash(NavComp.compName);
+
 
     active : boolean;
 
@@ -20,13 +23,16 @@ export class NavComp implements IComponent
         }
         else
         {
-            let r =  gameConfig.spawnRange;
-            this.dest = new Vector2(Math.random() * r - r/2,Math.random() * r - r/2);
+            //let r =  gameConfig.spawnRange;
+            //this.dest = new Vector2(Math.random() * r - r/2,Math.random() * r - r/2);
+            this.dest = new Vector2();
         }
 
     }
 
     getCompName() : string {return NavComp.compName};
+    getCompHash() : number {return NavComp.nameHash};
+
 
     toString() : string
     {

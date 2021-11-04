@@ -1,10 +1,12 @@
 import { IComponent } from "../IComponent";
 
-import gameConfig from  '../../GameConfig.json';
+import gameConfig from  '../../config.json';
+import stringHash from "string-hash";
 
 export class AnimalComp implements IComponent
 {
-    static compName = "Animal";
+    static compName : string = "Animal";
+    static nameHash : number = stringHash(AnimalComp.compName);
 
     selectiveness : number;
     attractiveness : number;
@@ -27,6 +29,7 @@ export class AnimalComp implements IComponent
     }
 
     getCompName() : string {return AnimalComp.compName};
+    getCompHash() : number {return AnimalComp.nameHash};
     
     toString() : string
     {

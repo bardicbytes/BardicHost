@@ -2,7 +2,7 @@ import { assert, debug } from "console";
 import stringHash = require("string-hash");
 import { IComponent } from "./IComponent";
 import * as Comps from "./Components";
-import gameConfig from  '../GameConfig.json';
+import gameConfig from  '../config.json';
 
 export class Entity
 {
@@ -27,17 +27,14 @@ export class Entity
 
         for(let i = 0; i < compTypes.length; i++)
         {
-            let t = compTypes[i];
-            //console.log("creating "+t)
-            let c : IComponent = Comps.Create(t);
+            //console.log("adding comp "+i+" "+compTypes[i]);
+            let c : IComponent = Comps.Create(compTypes[i]);
             this.components[i] = c;
-            let h = stringHash(c.getCompName());
+            let h = c.getCompHash();
             this.compMap.set(h, c);
         }
         this.id = Entity.getNextID();
     }
-
-
 
     static getNextID() : number
     {
@@ -51,6 +48,10 @@ export class Entity
         return this.compMap.get(stringHash(classKey)) as T
     }
 
+    hasComponent(component : string) : boolean
+    {
+        return this.hasComponents([component]);
+    }
 
     hasComponents(components : string[]) : boolean
     {

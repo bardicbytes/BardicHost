@@ -1,4 +1,3 @@
-import { cp } from "fs";
 import stringHash from "string-hash";
 import { IComponent } from "../IComponent";
 
@@ -9,6 +8,7 @@ import {MemoryComp} from "./MemoryComp";
 import {NavComp} from "./NavComp";
 import {PerceptionComp} from "./PerceptionComp";
 import {VegetableComp} from "./VegetableComp";
+import {TaskingComp} from "./TaskingComp";
 
 export * from "./AnimalComp";
 export * from "./BodyComp";
@@ -17,6 +17,9 @@ export * from "./InventoryComp";
 export * from "./NavComp";
 export * from "./PerceptionComp";
 export * from "./VegetableComp";
+export * from "./TaskingComp";
+
+export * from "../IComponent";
 
 let  compConstructorMap : Map<number, Function> = new Map<number, Function>();
 
@@ -27,6 +30,7 @@ compConstructorMap.set(stringHash( InventoryComp.compName), () : InventoryComp =
 compConstructorMap.set(stringHash( NavComp.compName), () : NavComp => new NavComp());
 compConstructorMap.set(stringHash( PerceptionComp.compName), () : PerceptionComp => new PerceptionComp());
 compConstructorMap.set(stringHash( VegetableComp.compName), () : VegetableComp => new VegetableComp());
+compConstructorMap.set(stringHash( TaskingComp.compName), () : TaskingComp => new TaskingComp());
 
 export function Create(name : string) : IComponent
 {

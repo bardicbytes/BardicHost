@@ -5,24 +5,14 @@ const pug = require('pug');
 const url = require('url');
 
 const port = 3000;
-const game = new BardGame();
 const indexFunction = pug.compileFile('./pugs/index.pug');
 const server = createServer(handleRequest);
-const serverStartTime : Date = new Date();
-
+const game : BardGame = new BardGame();;
 
 server.listen(port, listenCallback);
 
 function listenCallback() {
-    console.log(`Server listening on port ${port}`);
-    loop();
-}
-
-function loop()
-{
-    game.update();
-    let d = 1000/BardGame.ticksPerMin / 60;
-    setTimeout(loop, d);
+    //console.log(`Server listening on port ${port}`);
 }
 
 function handleRequest(request: IncomingMessage, response: ServerResponse)

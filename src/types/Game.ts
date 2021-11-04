@@ -1,16 +1,15 @@
 import * as fs from "fs";
-import gameConfig from  '../GameConfig.json';
-
-import { Entity } from "./Entity";
-import { IComponent } from "./IComponent";
-import { System } from "./System";
-
-import * as Comps from "./Components";
-import * as Systems from "./Systems";
 import stringHash from "string-hash";
 
-const ticksPerMin = 10;
-const savePerMin = 10;
+import { BardConfig } from "./BardConfig";
+
+import { Entity } from "./Entity";
+import { System } from "./System";
+
+import * as Comp from "./Components";
+import * as Sys from "./Systems";
+
+const config : BardConfig = require("../config.json");
 
 export class BardGame
 {
@@ -20,7 +19,7 @@ export class BardGame
 
     startTime : Date;
     lastTime : Date;
-    static ticksPerMin: number = ticksPerMin;
+    static ticksPerMin: number = config.ticksPerMin;
     
     entityMap : Map<number, Entity>;
     compConstructorMap : Map<number, Function>;
@@ -32,53 +31,51 @@ export class BardGame
         this.lastTime = new Date();
 
         this.entityMap = new Map<number,Entity>();
+        this.entities = new Array<Entity>(config.entities.length);
 
-        this.entities = [
-            new Entity("Adam", this.getNewPersonComps()),
-            new Entity("Eve", this.getNewPersonComps()),
-        ];
-
+        console.log("initializing entities");
+        
         for(let i = 0; i < this.entities.length; i++)
         {
-            let e : Entity= this.entities[i];
-            let h : number= stringHash(e.name);
-            this.entityMap.set(h,e);
+            let e : Entity= new Entity(config.entities[i], config.entityComps[i]);
+            this.entities[i] = e;
+            this.entityMap.set(e.id,e);
         }
 
-        this.refreshSystems();
+        console.log("initializing main systems");
+        
+        this.systems = Sys.init(this.entities);
+        
+        console.log("starting loop");
+        //startGameLoop
+        this.loop(this);
     }
 
-    getNewPersonComps(extraComps? : string[]) : string[] 
+    loop(g : BardGame)
     {
-        let comps  : string[] = [Comps.BodyComp.compName, Comps.NavComp.compName, Comps.AnimalComp.compName, Comps.PerceptionComp.compName];
-        if(extraComps !== undefined) comps = comps.concat(extraComps);
-        return comps;
+        let d = (1000/(BardGame.ticksPerMin / 60));
+
+        setTimeout(()=>{
+            g.update();
+            this.loop(g);
+        }, d);
     }
 
-    getNewPlantComps(extraComps? : string[]) : string[] 
+    update()
     {
-        let comps : string[] = [Comps.BodyComp.compName, Comps.VegetableComp.compName]
-        if(extraComps !== undefined) comps = comps.concat(extraComps);
-        return comps;
-    }
+        
+        let now = new Date();
+        let dt =  now.getTime() - this.lastTime.getTime();
+        //console.log("update... "+(dt/1000))
 
-    getNewObjectComps(extraComps? : string[]) : string[]
-    {
-        let comps : string[] = [Comps.BodyComp.compName]
-        if(extraComps !== undefined) comps = comps.concat(extraComps);
-        return comps;
-    }
+        for(let i = 0; i < this.systems.length; i++)
+        {
+            let s = this.systems[i];
+            s.update(dt);
+        }
 
-    refreshSystems()
-    {
-        this.systems = [
-            new Systems.DecisionSys(this.entities),
-            new Systems.GrowthSys(this.entities),
-            new Systems.MovementSys(this.entities),
-            new Systems.NavigationSys(this.entities),
-            new Systems.ResourceSys(this.entities),
-            new Systems.SocialSys(this.entities),
-        ];
+        this.lastTime = now;
+        this.tick++;
     }
 
     toString(): string
@@ -124,25 +121,10 @@ export class BardGame
         return (this.startTime.getTime() - this.lastTime.getTime());
     }
 
-    Act(action : string) : void
+    Act(action : string)
     {
         this.update();
         console.log("Action "+action)
-    }
-
-    update() : void
-    {
-        let now = new Date();
-        let dt =  this.lastTime.getTime() - now.getTime();
-
-        for(let i = 0; i < this.systems.length; i++)
-        {
-            let s = this.systems[i];
-            s.update(dt);
-        }
-
-        this.lastTime = now;
-        this.tick++;
     }
 
     save()
@@ -159,7 +141,7 @@ export class BardGame
     {
         fs.readFile("../saveData.json",(err : NodeJS.ErrnoException, data: Buffer)=>{
             //set data
-            this.refreshSystems();
+            this.systems = Sys.init(this.entities);
         })
     }
 
@@ -168,6 +150,16 @@ export class BardGame
         let life = now.getTime() - this.startTime.getTime();
         life /= 1000;
         return life;
+    }
+
+    getEntity(id:number) : Entity
+    {
+        return this.entityMap.get(id);
+    }
+
+    regEntity(entity : Entity)
+    {
+        this.entities.push(entity);
     }
 
 }

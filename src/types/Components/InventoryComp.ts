@@ -1,12 +1,16 @@
 import { IComponent } from "../IComponent";
 
-import gameConfig from  '../../GameConfig.json';
+import gameConfig from  '../../config.json';
 import { Entity } from "../Entity";
+import stringHash from "string-hash";
 
 
 export class InventoryComp implements IComponent
 {
     static compName = "Inventory";
+    static nameHash : number = stringHash(InventoryComp.compName);
+
+
     slotSize : number;
     slotCount : number;
 
@@ -21,6 +25,8 @@ export class InventoryComp implements IComponent
     }
 
     getCompName() : string {return InventoryComp.compName};
+    getCompHash() : number {return InventoryComp.nameHash};
+
 
     toString() : string
     {

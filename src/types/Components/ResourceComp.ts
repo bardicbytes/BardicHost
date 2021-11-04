@@ -1,9 +1,11 @@
+import stringHash from "string-hash";
 import { Type } from "typescript";
 import { IComponent } from "../IComponent";
 
 export class ResourceComp implements IComponent
 {
     static compName = "Resource";
+    static nameHash : number = stringHash(ResourceComp.compName);
 
     type : string;
     amount : number;
@@ -24,6 +26,7 @@ export class ResourceComp implements IComponent
     }
 
     getCompName() : string {return ResourceComp.compName};
+    getCompHash() : number {return ResourceComp.nameHash};
 
     toString() : string
     {

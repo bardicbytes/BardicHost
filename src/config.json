@@ -1,0 +1,18 @@
+{
+    "ticksPerMin" : 12,
+    "savePerMin" : 10,
+
+    "worldWrap" : true,
+    "worldSize" : 150,
+    "spawnRange" : 10,
+    "circadianPeriod" : 200,
+
+    "hungerThreash" : 0.34,
+
+    "entities" : ["Adam","Eve"],
+    "entityComps" : 
+    [
+        ["Body","Navigation", "Animal", "Perception", "Tasking","Inventory","Memory"],
+        ["Body","Navigation", "Animal", "Perception", "Tasking","Inventory","Memory"]
+    ]
+}

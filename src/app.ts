@@ -1,5 +1,5 @@
 
-import { BardGame } from './server/Game';
+import { BardGame } from './server/BardGame';
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 const pug = require('pug');
 const url = require('url');
@@ -64,8 +64,3 @@ function getContent(mode : string) : string
 
     return c;
 }
-
-
-
-
-

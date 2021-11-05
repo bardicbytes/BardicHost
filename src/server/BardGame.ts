@@ -1,15 +1,15 @@
 import * as fs from "fs";
 import { BodiedEntityData, GameState } from "../types/gameState";
+
 import { BardConfig } from "./BardConfig";
+const config : BardConfig = require("../config.json");
 
 import { Entity } from "./Entity";
 import { System } from "./System";
 
 import * as Sys from "./Systems";
 import * as Comps from "./Components";
-import { json } from "stream/consumers";
 
-const config : BardConfig = require("../config.json");
 
 export class BardGame
 {
@@ -44,7 +44,7 @@ export class BardGame
 
         console.log("initializing main systems");
         
-        this.systems = Sys.init(this.entities);
+        this.systems = Sys.init(this);
         
         console.log("starting loop");
         //startGameLoop
@@ -122,7 +122,7 @@ export class BardGame
     {
         fs.readFile("../saveData.json",(err : NodeJS.ErrnoException, data: Buffer)=>{
             //set data
-            this.systems = Sys.init(this.entities);
+            this.systems = Sys.init(this);
         })
     }
 
@@ -173,7 +173,7 @@ export class BardGame
             let hasBody : boolean = e.hasComponent(Comps.BodyComp.compName);
             if(!hasBody) continue;
             
-            data.entities.push(new BodiedEntityData("black",e));
+            data.entities.push(new BodiedEntityData(e));
         }
         return JSON.stringify(data);
     }

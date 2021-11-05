@@ -10,6 +10,7 @@ export class Entity
     displayName : string;
     id : number;
     components : IComponent[];
+    color : string;
 
     compMap : Map<number, IComponent>;
 
@@ -20,6 +21,7 @@ export class Entity
         this.components = new Array<IComponent>(compTypes.length);
         for(let i = 0; i < compTypes.length; i++)        
 
+        this.color = "blue";
         this.displayName = name;
         this.startTime = new Date();
         this.compMap = new Map<number,IComponent>();

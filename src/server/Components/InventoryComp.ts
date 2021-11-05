@@ -4,33 +4,41 @@ import gameConfig from  '../serverConfig.json';
 import { Entity } from "../Entity";
 import stringHash from "string-hash";
 
+export class pocket 
+{
+    size : number;
+
+    contents : number[];//array of entity ids
+
+    constructor(size : number, count : number)
+    {
+        this.contents = new Array<number>(count);
+        this.size = size;
+    }
+}
 
 export class InventoryComp implements IComponent
 {
     static compName = "Inventory";
     static nameHash : number = stringHash(InventoryComp.compName);
 
-
-    slotSize : number;
-    slotCount : number;
+    pockets : pocket[];
 
     constructor(){
-        this.slotSize = 1;
-        this.slotCount = 1;
+        this.pockets = [new pocket(2,2)];
     }
 
-    init(size : number, count : number){
-        this.slotSize = size;
-        this.slotCount = count;
+    init(pockets : pocket[]){
+        this.pockets = pockets;
     }
 
     getCompName() : string {return InventoryComp.compName};
     getCompHash() : number {return InventoryComp.nameHash};
 
-
     toString() : string
     {
         return "InventoryComp";
     }
+
 
 }

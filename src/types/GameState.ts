@@ -13,19 +13,20 @@ export class GameState
 
 export class BodiedEntityData
 {
+    id : number;
     dispName : string;
     color : string;
     radius : number;
     pos : Vector2;
     angle : number;
 
-    constructor(color : string, entity : Entity)
+    constructor(entity : Entity)
     {
         let bc : BodyComp = entity.getComp(BodyComp.compName);
-        
-        this.dispName = entity.displayName;
-        this.color = color;
 
+        this.dispName = entity.displayName;
+        this.color = entity.color;
+        this.id = entity.id;
         this.radius = bc.radius;
         this.pos = bc.pos;
         this.angle = bc.angle;

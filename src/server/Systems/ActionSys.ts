@@ -1,6 +1,11 @@
 import { System } from "../System";
 import * as Comps from "../Components";
 import { Entity } from "../Entity";
+import { formatDiagnostic } from "typescript";
+
+import { BardConfig } from "../BardConfig";
+import { InventoryUtils } from "../Utils/InventoryUtils";
+const config : BardConfig = require("../config.json");
 
 /*
 phys:   digestion, home
@@ -35,10 +40,21 @@ export class ActionSys extends System
         let tasker : Comps.TaskingComp = e.getComp(Comps.TaskingComp.compName);
         let body : Comps.BodyComp = e.getComp(Comps.BodyComp.compName);
         
-        if(animal.stomach < .5)
+        if(animal.stomach < config.hungerThreash)
         {
-            //queue and 
-            tasker.taskQueue.push(new Comps.Task(Comps.actions.use,body.pos));
+            if(e.hasComponent(Comps.InventoryComp.compName))
+            {
+                let foodTargID : number;
+                let inv : Comps.InventoryComp = e.getComp(Comps.InventoryComp.compName);
+                let ids : number[] = InventoryUtils.Find(this.game,inv,[Comps.FoodComp.compName])
+                if(foodTargID == undefined && ids.length >= 0){
+                    foodTargID = ids[0];
+                }
+                if(foodTargID !== undefined)
+                {
+                    tasker.taskQueue.push(new Comps.Task(Comps.actions.use, body.pos, foodTargID));
+                }
+            }
         }
     }
     

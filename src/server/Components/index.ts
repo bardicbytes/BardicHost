@@ -9,6 +9,7 @@ import {NavComp} from "./NavComp";
 import {PerceptionComp} from "./PerceptionComp";
 import {VegetableComp} from "./VegetableComp";
 import {TaskingComp} from "./TaskingComp";
+import {FoodComp} from "./FoodComp";
 
 export * from "./AnimalComp";
 export * from "./BodyComp";
@@ -18,6 +19,7 @@ export * from "./NavComp";
 export * from "./PerceptionComp";
 export * from "./VegetableComp";
 export * from "./TaskingComp";
+export * from "./FoodComp";
 
 export * from "../IComponent";
 
@@ -31,6 +33,7 @@ compConstructorMap.set(stringHash( NavComp.compName), () : NavComp => new NavCom
 compConstructorMap.set(stringHash( PerceptionComp.compName), () : PerceptionComp => new PerceptionComp());
 compConstructorMap.set(stringHash( VegetableComp.compName), () : VegetableComp => new VegetableComp());
 compConstructorMap.set(stringHash( TaskingComp.compName), () : TaskingComp => new TaskingComp());
+compConstructorMap.set(stringHash( FoodComp.compName), () : FoodComp => new FoodComp());
 
 export function Create(name : string) : IComponent
 {

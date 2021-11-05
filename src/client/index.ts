@@ -43,8 +43,10 @@ function apply( myJson : any){
         el.innerHTML = "";
         for(let i = 0; i < lastData.entities.length;i++)
         {
-            let e = lastData.entities[i];
-            el.innerHTML += e.dispName+"<br />";
+            let e = lastData.entities[i];//BodiedEntityData
+            el.innerHTML += "<div class=entity id="+e.id+">"+e.dispName+"</div>";
+            document.getElementById(e.id).style.top = (e.pos.y / 2)+"%";
+            document.getElementById(e.id).style.left = (e.pos.x / 2)+"%";
         }
     }
     catch(e){

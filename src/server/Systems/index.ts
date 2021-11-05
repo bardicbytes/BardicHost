@@ -1,3 +1,4 @@
+import { BardGame } from "../BardGame";
 import { Entity } from "../Entity";
 
 import { ActionSys } from "./ActionSys";
@@ -14,14 +15,14 @@ export * from "./NavigationSys";
 export * from "./ResourceSys";
 export * from "./SocialSys";
 
-export function init(entities : Entity[])
+export function init(game : BardGame)
 {
    return  [
-        new ActionSys(entities),
-        new GrowthSys(entities),
-        new MovementSys(entities),
-        new NavigationSys(entities),
-        new ResourceSys(entities),
-        new SocialSys(entities),
+        new ActionSys(game),
+        new GrowthSys(game),
+        new MovementSys(game),
+        new NavigationSys(game),
+        new ResourceSys(game),
+        new SocialSys(game),
     ];
 }

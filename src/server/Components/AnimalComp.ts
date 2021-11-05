@@ -13,6 +13,7 @@ export class AnimalComp implements IComponent
 
     stomach : number;
     energy : number;
+    energyStore : number;
     hydration : number;
     waste : number;
 

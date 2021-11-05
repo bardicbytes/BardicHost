@@ -1,11 +1,12 @@
 
-import { BardGame } from './types/Game';
+import { BardGame } from './server/Game';
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 const pug = require('pug');
 const url = require('url');
 
 const port = 3000;
-const indexFunction = pug.compileFile('./pugs/index.pug');
+const debugPageFunc = pug.compileFile('./pugs/debug.pug');
+const indexPageFunc = pug.compileFile('./pugs/index.pug');
 const server = createServer(handleRequest);
 const game : BardGame = new BardGame();;
 
@@ -31,17 +32,37 @@ function handleRequest(request: IncomingMessage, response: ServerResponse)
 
 function getContent(mode : string) : string
 {
+    if(mode == undefined) 
+    {
+        mode = "index";
+    }
+    let content : any;
+    let c :string = "";
     try
     {
-        let vars : any = game.getContent(mode);
-        console.log(JSON.stringify(vars, null, 4));
-        let c = indexFunction(vars);
-        return c;
+        content = game.getContent(mode);
     }
     catch(e)
     {
-        return "error\n"+e;
+        c = "error\n"+e;
     }
+        
+    if(mode == "index")
+    {
+        c = indexPageFunc(content);
+    }
+    else if(mode == "debug")
+    {
+        console.log(JSON.stringify(content, null, 4));
+        c = debugPageFunc(content);
+    }
+    else if(mode == "state")
+    {
+        console.log("state content:\n"+content);
+        c = content;
+    }
+
+    return c;
 }
 
 

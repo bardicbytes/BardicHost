@@ -1,7 +1,7 @@
 import { IComponent } from "../IComponent";
 
-import gameConfig from  '../../config.json';
-import { Vector2 } from "../Vector2";
+import gameConfig from  '../serverConfig.json';
+import { Vector2 } from "../../types/Vector2";
 import stringHash from "string-hash";
 
 export class NavComp implements IComponent

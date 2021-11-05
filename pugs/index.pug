@@ -2,9 +2,10 @@ doctype html
 html(lang="en")
   head
     title BardSim
+    style
+      include style.css
+    script(type='text/javascript')
+      include ../dist/client/index.js
   body
-    h2 People
-    ul
-      each val, index in (people ? (people.length ? people : ['no people']) : ["people is "+typeof(people)])
-        li= (index+1)+": "+val
-p thats it
+    div#header
+    div#gamearea

@@ -1,6 +1,6 @@
 import stringHash from "string-hash";
 import { IComponent } from "../IComponent";
-import { Vector2 } from "../Vector2";
+import { Vector2 } from "../../types/Vector2";
 
 export class BodyComp implements IComponent
 {

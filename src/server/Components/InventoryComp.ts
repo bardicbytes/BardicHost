@@ -1,6 +1,6 @@
 import { IComponent } from "../IComponent";
 
-import gameConfig from  '../../config.json';
+import gameConfig from  '../serverConfig.json';
 import { Entity } from "../Entity";
 import stringHash from "string-hash";
 

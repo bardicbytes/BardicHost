@@ -2,13 +2,12 @@ import { assert, debug } from "console";
 import stringHash = require("string-hash");
 import { IComponent } from "./IComponent";
 import * as Comps from "./Components";
-import gameConfig from  '../config.json';
 
 export class Entity
 {
     static nextid : number;
     startTime : Date;
-    name : string;
+    displayName : string;
     id : number;
     components : IComponent[];
 
@@ -21,7 +20,7 @@ export class Entity
         this.components = new Array<IComponent>(compTypes.length);
         for(let i = 0; i < compTypes.length; i++)        
 
-        this.name = name;
+        this.displayName = name;
         this.startTime = new Date();
         this.compMap = new Map<number,IComponent>();
 
@@ -66,7 +65,7 @@ export class Entity
     toString(): string
     {
         let output = "";
-        output = this.name;
+        output = this.displayName;
         for(let i = 0; i < this.components.length; i++)
         {
             try

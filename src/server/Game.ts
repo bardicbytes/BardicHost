@@ -1,13 +1,13 @@
 import * as fs from "fs";
-import stringHash from "string-hash";
-
+import { BodiedEntityData, GameState } from "../types/gameState";
 import { BardConfig } from "./BardConfig";
 
 import { Entity } from "./Entity";
 import { System } from "./System";
 
-import * as Comp from "./Components";
 import * as Sys from "./Systems";
+import * as Comps from "./Components";
+import { json } from "stream/consumers";
 
 const config : BardConfig = require("../config.json");
 
@@ -97,25 +97,6 @@ export class BardGame
         return output;
     }
 
-    getContent(mode : string) : any
-    {
-        let content : any = {
-            people : [],
-        };
-        for(let i = 0; i < this.entities.length; i++)
-        {
-            try
-            {
-                content.people.push(this.entities[i].toString());
-                
-            }
-            catch(e){
-                content.people.push(e);
-            }
-        }
-        return content;
-    }
-
     getDeltaTime() : number
     {
         return (this.startTime.getTime() - this.lastTime.getTime());
@@ -160,6 +141,83 @@ export class BardGame
     regEntity(entity : Entity)
     {
         this.entities.push(entity);
+    }
+
+    getContent(mode : string) : any
+    {
+        let content : any;
+
+        if(mode == "index")
+        {
+            return this.getIndexContent();
+        }
+        if(mode == "debug")
+        {
+            return this.getDebugContent();
+        }
+        if(mode == "state")
+        {
+            return this.getStateContent();
+        }
+        
+        return content;
+    }
+
+    getStateContent() : string
+    {
+        //return full json data for client
+        let data : GameState = new GameState();
+        for(let i = 0; i < this.entities.length; i++)
+        {
+            let e = this.entities[i];
+            let hasBody : boolean = e.hasComponent(Comps.BodyComp.compName);
+            if(!hasBody) continue;
+            
+            data.entities.push(new BodiedEntityData("black",e));
+        }
+        return JSON.stringify(data);
+    }
+
+    getIndexContent() : any
+    {
+        let content : any = {
+            entities : [],
+        };
+
+        for(let i = 0; i < this.entities.length; i++)
+        {
+            try
+            {
+                content.people.push(this.entities[i].displayName);
+                
+            }
+            catch(e){
+                content.people.push(e);
+            }
+        }
+        
+        return content;
+    }
+    
+    getDebugContent() : any
+    {
+        let content : any = {
+            people : [],
+        };
+
+        for(let i = 0; i < this.entities.length; i++)
+        {
+            try
+            {
+                content.people.push(this.entities[i].toString());
+                
+            }
+            catch(e){
+                content.people.push(e);
+            }
+        }
+        
+        return content;
     }
 
 }

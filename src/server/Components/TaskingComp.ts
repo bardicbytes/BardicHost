@@ -1,8 +1,8 @@
 import { assert, debug } from "console";
 import stringHash from "string-hash";
 import { IComponent } from "../IComponent";
-import { Queue } from "../Queue";
-import { Vector2 } from "../Vector2";
+import { Queue } from "../../types/Queue";
+import { Vector2 } from "../../types/Vector2";
 
 export const actions =
 {

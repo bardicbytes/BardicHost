@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+  head
+    title BardSim
+    style
+      include style.css
+  body
+    h2 People
+    ul
+      each val, index in (people ? (people.length ? people : ['no people']) : ["people is "+typeof(people)])
+        li= (index+1)+": "+val

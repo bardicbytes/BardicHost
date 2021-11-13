@@ -5,9 +5,7 @@ import { formatDiagnostic } from "typescript";
 
 import { BardConfig } from "../BardConfig";
 import { InventoryUtils } from "../Utils/InventoryUtils";
-import { action } from "commander";
-const config : BardConfig = require("../config.json");
-
+const config : BardConfig = require("../serverConfig.json");
 /*
 phys:   digestion, home
 safe:   landmark, memory:resources

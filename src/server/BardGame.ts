@@ -2,7 +2,7 @@ import * as fs from "fs";
 import { BodiedEntityData, GameState } from "../types/gameState";
 
 import { BardConfig } from "./BardConfig";
-const config : BardConfig = require("../config.json");
+const config : BardConfig = require("./serverConfig.json");
 
 import { Entity } from "./Entity";
 import { System } from "./System";

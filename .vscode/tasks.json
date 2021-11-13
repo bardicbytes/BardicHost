@@ -3,23 +3,24 @@
     "tasks":[
         {
             "label": "bard-build",
-            "dependsOn": ["npm-build"],
+            "dependsOn": ["gulp-build"],
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
         },
         {
-            "label": "npm-build",
-            "type": "npm",
-            "script": "build",
-            "dependsOn":["gulp-build"]
-        },
-        {
             "label": "gulp-build",
             "type": "shell",
             "command" : "gulp",
-            "args": ["build"]
-        }
+            "args": ["build"],
+            "dependsOn":["npm-build"]
+        },
+        {
+            "label": "npm-build",
+            "type": "npm",
+            "script": "build"
+        },
+        
     ]
 }

@@ -2,7 +2,7 @@ import stringHash from "string-hash";
 import { IComponent } from "../IComponent";
 
 import { BardConfig } from "../BardConfig";
-const config : BardConfig = require("../config.json");
+const config : BardConfig = require("../serverConfig.json");
 
 export class FoodComp implements IComponent
 {

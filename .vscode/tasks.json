@@ -21,6 +21,5 @@
             "type": "npm",
             "script": "build"
         },
-        
     ]
 }

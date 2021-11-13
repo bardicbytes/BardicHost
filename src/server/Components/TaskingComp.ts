@@ -4,15 +4,6 @@ import { IComponent } from "../IComponent";
 import { Queue } from "../../types/Queue";
 import { Vector2 } from "../../types/Vector2";
 
-export const actions =
-{
-    none : 0,
-    use : 1,
-    pickup : 2,
-    wait : 3,
-    examine : 4
-};
-
 export class Task
 {
     action : number;
